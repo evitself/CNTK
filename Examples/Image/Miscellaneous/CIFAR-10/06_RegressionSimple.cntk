@@ -1,5 +1,5 @@
-# CNTK Configuration File for training a simple CIFAR-10 convnet.
-# During the hands-on tutorial, this will be fleshed out into a ResNet-20 model.
+# CNTK Configuration File for training a simple regression model on CIFAR-10.
+# See README.md for instructions on how to generate data and regression labels for this example.
 
 command = TrainConvNet:Write
 

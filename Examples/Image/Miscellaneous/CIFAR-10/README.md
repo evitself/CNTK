@@ -56,5 +56,7 @@ With 03_ResNet.cntk you should get around 8.2% of error after training for about
 
 4. 05_ConvLocal.cntk uses locally-connected convolution layers (see `conv_local3` and `conv_local4` in `05_ConvLocal.cntk`) and resembles a network described here: https://code.google.com/p/cuda-convnet/source/browse/trunk/example-layers/layers-conv-local-11pct.cfg
 
+5. 06_RegressionSimple.cntk shows how to train a regression model on image data. It uses a very simple network and a composite reader using both the ImageReader and CNTKTextFormatReader and defines a the RMSE (root mean square error) as the loss function. The value that the network learns to predict are simply the average rgb values of an image normalized to [0, 1]. To generate the ground truth labels for regression you need to run the CifarConverter.py script (since this example was added later you might need to rerun it to generate the regression files). See also here: https://github.com/Microsoft/CNTK/wiki/Train-a-regression-model-on-images
+
 For more details, refer to .ndl and corresponding .cntk files.
 
