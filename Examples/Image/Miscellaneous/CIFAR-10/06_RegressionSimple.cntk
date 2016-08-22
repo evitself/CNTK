@@ -16,12 +16,12 @@ TrainConvNet = {
 
     BrainScriptNetworkBuilder = [
         imageShape = 32:32:3
-        featScale = Constant(0.00390625)
+        featScale = Constant(1/256)
         labelDim = 3
 
         model (features) = {
             featNorm = Scale(features, featScale)
-            h1 = LinearLayer {100, init="gaussian", initValueScale=1.5} (featNorm)
+            h1 = LinearLayer {100,      init="gaussian", initValueScale=1.5} (featNorm)
             ol = LinearLayer {labelDim, init="gaussian", initValueScale=1.5} (h1)
         }.ol
 
@@ -34,10 +34,8 @@ TrainConvNet = {
 
         # define regression loss
         # rmse = sqrt(SquareError(regrLabels, ol) / labelDim)
-        lossScale = Constant(0.333333)
-        sqerr = SquareError(regrLabels, ol)
-        mse = ElementTimes (lossScale, sqerr)
-        rmse = Sqrt(mse)
+        sqerr = SquareError (regrLabels, ol)
+        rmse = Sqrt (Constant(1/labelDim).* sqerr)
 
         featureNodes    = (features)
         labelNodes      = (regrLabels)
@@ -87,7 +85,7 @@ Write = {
     outputPath = "$OutputDir$/06_RegressionSimple"
     
     reader = {
-        verbosity = 0 ; randomize = true
+        verbosity = 0 ; randomize = false
         deserializers = ({
             type = "ImageDeserializer" ; module = "ImageReader"
             file = "$dataDir$/cifar-10-batches-py/test_map.txt"

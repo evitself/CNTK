@@ -13,25 +13,20 @@
 
 ### Getting the data
 
-CIFAR-10 dataset is not included in CNTK distribution but can be easily downloaded and converted by running the following command from this folder:
+CIFAR-10 dataset is not included in CNTK distribution but can be easily downloaded and converted by running the following commands from this folder:
 
-`python CIFAR_convert.py [-f <format: cudnn|legacy>]`
-
-The script will download all required files and convert them to CNTK-supported format.
-In case you don't have a Python installed, there are 2 options:
-
-1. Download and install latest version of Python 2.7 from: https://www.python.org/downloads/
-Then install numpy package by following instruction from: http://www.scipy.org/install.html#individual-packages
-2. Alternatively install Python Anaconda distribution which contains most of the popular Python packages including numpy:
-http://continuum.io/downloads
-
-`-f` parameter is optional and specifies output format of the datasets. `cudnn` option (default) saves dataset in a spatial-major format used by cuDNN, while `legacy` - in CNTK legacy format. Use `cudnn` if CNTK is compiled with cuDNN and `legacy` otherwise.
-
-ResNet samples require converting CIFAR-10 dataset to actual images. This can be performed by running the following command:
 ```
+python CifarDownload.py [-f <format: cudnn|legacy>]
 python CifarConverter.py <path to CIFAR-10 dataset>
 ```
-The script takes a full path to the original CIFAR-10 dataset (in Python pickle format). The script will create `data` folder inside of provided path where it will store both train and test images (in `train` and `test` folders). It will also create appropriate mapping files for the CNTK ImageReader as well as mean file.
+
+The scripts will download all required files and convert them to CNTK-supported format.
+In case you don't have Python installed (you require Python 2.7 and numpy), we recommend to install the Python Anaconda distribution which contains most of the popular Python packages including numpy:
+http://continuum.io/downloads
+
+The download script has an optional `-f` parameter which specifies output format of the datasets. `cudnn` option (default) saves dataset in a spatial-major format used by cuDNN, while `legacy` - in CNTK legacy format. Use `cudnn` if CNTK is compiled with cuDNN and `legacy` otherwise.
+
+The converter script takes a full path to the original CIFAR-10 dataset (in Python pickle format). The script will create `data` folder inside of provided path where it will store both train and test images (in `train` and `test` folders). It will also create appropriate mapping files for the CNTK ImageReader as well as mean file.
 
 ## Details
 
